@@ -51,7 +51,11 @@ async function readData() {
 
 async function writeData(data) {
   if (!process.env.BLOB_READ_WRITE_TOKEN) {
-    throw Object.assign(new Error("Configura BLOB_READ_WRITE_TOKEN en Vercel para guardar cambios"), { status: 503 });
+    if (!process.env.VERCEL) {
+      fs.writeFileSync(DATA_FILE, JSON.stringify(data, null, 2));
+      return true;
+    }
+    return false;
   }
   const { put } = await blobStore();
   await put(BLOB_KEY, JSON.stringify(data, null, 2), {
@@ -60,7 +64,13 @@ async function writeData(data) {
     allowOverwrite: true,
     contentType: "application/json"
   });
+  return true;
 }
+
+const storageUnavailable = res => response(res, 503, {
+  error: "Almacenamiento no configurado",
+  detail: "Conecta un Vercel Blob Store al proyecto y vuelve a desplegar."
+});
 
 function requestBody(req) {
   if (req.body && typeof req.body === "object") return req.body;
@@ -91,7 +101,7 @@ module.exports = async function handler(req, res) {
       return response(res, 409, { error: "Esa persona ya está registrada en esa sede" });
     const person = { id: `p${Date.now().toString(36)}`, nombre: name, sede: body.sede, turno: body.turno };
     data.personal.push(person);
-    await writeData(data);
+    if (!await writeData(data)) return storageUnavailable(res);
     return response(res, 201, person);
   }
 
@@ -103,7 +113,7 @@ module.exports = async function handler(req, res) {
     if (index < 0) return response(res, 404, { error: "Persona no encontrada" });
     if (req.method === "DELETE") {
       data.personal.splice(index, 1);
-      await writeData(data);
+      if (!await writeData(data)) return storageUnavailable(res);
       return response(res, 200, { ok: true });
     }
     const body = requestBody(req);
@@ -113,7 +123,7 @@ module.exports = async function handler(req, res) {
     if (data.personal.some(person => person.id !== id && person.nombre.toLowerCase() === name.toLowerCase() && person.sede === body.sede))
       return response(res, 409, { error: "Esa persona ya está registrada en esa sede" });
     data.personal[index] = { ...data.personal[index], nombre: name, sede: body.sede, turno: body.turno };
-    await writeData(data);
+    if (!await writeData(data)) return storageUnavailable(res);
     return response(res, 200, data.personal[index]);
   }
 
@@ -138,7 +148,7 @@ module.exports = async function handler(req, res) {
       turno: person.turno, horario: schedule, hora: hour, estado: minutes > start + 10 ? "Tarde" : "A tiempo"
     };
     data.registros.push(record);
-    await writeData(data);
+    if (!await writeData(data)) return storageUnavailable(res);
     return response(res, 201, record);
   }
 

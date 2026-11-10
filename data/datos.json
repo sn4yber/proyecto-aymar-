@@ -1,5 +1,12 @@
 {
-  "personal": [],
+  "personal": [
+    {
+      "id": "pmw4fcbp2",
+      "nombre": "aymar padilla",
+      "sede": "MHE",
+      "turno": "T3"
+    }
+  ],
   "registros": [
     {
       "fecha": "2026-11-07",
