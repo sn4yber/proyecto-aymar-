@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Registro de jornada TIC</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main>
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-mark">J</div>
+        <div>
+          <p class="eyebrow">Control operativo</p>
+          <h1>Jornada<span>Pro</span></h1>
+        </div>
+      </div>
+      <div class="live-status"><i></i> Sistema activo</div>
+    </header>
+
+    <section id="vista-registrar">
+      <div class="welcome">
+        <div>
+          <p class="eyebrow">Registro de entrada</p>
+          <h2>¡Buenos días! Registra tu jornada</h2>
+          <p class="sub">Selecciona tu sede y tu nombre para registrar la hora de llegada.</p>
+        </div>
+        <div class="date-card"><strong id="reloj">--:--</strong><span>Hora local</span></div>
+      </div>
+
+      <div class="register-grid">
+        <div class="card register-card">
+          <div class="section-heading">
+            <div class="icon-box">✓</div>
+            <div><h2>Marcar asistencia</h2><p>Completa los datos de tu turno</p></div>
+          </div>
+          <div class="form-grid">
+            <div><label for="sede">Sede</label><select id="sede"></select></div>
+            <div><label for="persona">Tu nombre</label><select id="persona" disabled></select></div>
+          </div>
+          <div class="info hide" id="info-turno"></div>
+          <button class="big" id="btn-registrar" disabled>Registrar inicio de jornada</button>
+          <div class="msg" id="mensaje"></div>
+        </div>
+
+        <div class="card today-card">
+          <div class="section-heading">
+            <div class="icon-box soft">◷</div>
+            <div><h2>Actividad de hoy</h2><p>Entradas registradas por sede</p></div>
+          </div>
+          <div id="tabla-hoy"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>

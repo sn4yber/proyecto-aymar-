@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Administración · JornadaPro</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body data-page="admin">
+  <main>
+    <header class="topbar">
+      <div class="brand"><div class="brand-mark">J</div><div>
+        <p class="eyebrow">Área privada</p><h1>Jornada<span>Pro</span></h1>
+      </div></div>
+      <a class="back-link" href="/">← Registro público</a>
+    </header>
+
+    <section id="vista-admin">
+      <div class="card" id="login">
+        <div class="section-heading"><div class="icon-box">⚙</div><div>
+          <h2>Acceso administrativo</h2><p>Gestiona personal, turnos y reportes</p>
+        </div></div>
+        <label for="usuario">Usuario</label><input id="usuario" autocomplete="username">
+        <label for="clave">Contraseña</label><input id="clave" type="password" autocomplete="current-password">
+        <button class="big" id="btn-login">Entrar</button>
+        <div class="msg bad" id="login-msg"></div>
+      </div>
+
+      <div id="panel" class="hide">
+        <div class="stats" aria-label="Resumen">
+          <div class="stat"><span>Personal</span><strong id="stat-personal">0</strong><small>personas activas</small></div>
+          <div class="stat"><span>Entradas hoy</span><strong id="stat-registros">0</strong><small>registros confirmados</small></div>
+          <div class="stat"><span>Turnos</span><strong id="stat-turnos">0</strong><small>horarios disponibles</small></div>
+        </div>
+        <div class="admin-grid">
+        <div class="card form-card">
+          <div class="section-heading"><div class="icon-box">+</div><div><h2>Agregar persona</h2><p>Asigna una sede y un turno</p></div></div>
+          <div class="row"><div><label for="nombre">Nombre completo</label><input id="nombre"></div>
+            <div><label for="sede-nueva">Sede</label><select id="sede-nueva"></select></div></div>
+          <label for="turno-nuevo">Turno asignado</label><select id="turno-nuevo"></select>
+          <div class="form-actions"><button class="big" id="btn-agregar">Agregar persona</button><button class="btn hide" id="btn-cancelar" type="button">Cancelar edición</button></div>
+        </div>
+        <div class="card"><div class="section-heading"><div class="icon-box soft">♙</div><div><h2>Personal registrado</h2><p>Personas habilitadas para marcar jornada</p></div></div><div id="tabla-personal"></div></div>
+        </div>
+        <div class="card wide-card"><div class="section-heading"><div class="icon-box soft">▦</div><div><h2>Horarios semanales</h2><p>Distribución de cada turno</p></div></div><p class="sub">Aplican de lunes a sábado.</p><div id="tabla-horarios"></div></div>
+        <div class="card wide-card"><div class="section-heading section-heading-inline"><div><h2>Historial</h2><p>Consulta y descarga la asistencia</p></div><div class="history-tools">
+          <label for="fecha-hist">Fecha</label><input id="fecha-hist" type="date"><button class="btn" id="btn-exportar">Descargar CSV</button>
+        </div></div><div id="tabla-hist"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>
