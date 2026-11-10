@@ -1,5 +1,10 @@
 {
   "name": "registro-jornada-tic",
   "version": "1.0.0",
-  "scripts": { "start": "node server.js" }
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "@vercel/blob": "^2.9.0"
+  }
 }
